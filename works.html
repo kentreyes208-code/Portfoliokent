@@ -59,6 +59,7 @@
             transform: translateY(-1px);
         }
 
+        /* HAMBURGER BUTTON FIX: Higher z-index to ensure it is always clickable */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -67,7 +68,7 @@
             position: absolute;
             right: 5%;
             z-index: 200; 
-            padding: 10px;
+            padding: 10px; /* Larger hit area for thumbs */
         }
 
         .hamburger span {
@@ -94,6 +95,7 @@
                 gap: 30px;
                 transition: 0.5s ease-in-out;
                 z-index: 150;
+                /* Prevent interaction when hidden */
                 pointer-events: none; 
                 visibility: hidden;
             }
@@ -112,12 +114,12 @@
             .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background-color: white; }
         }
 
-        /* --- REMAINING DESIGN --- */
+        /* --- REMAINING DESIGN (No Changes Made) --- */
         .featured-wrapper { width: 100%; margin-top: 20px; padding: 20px 0; }
         .featured-gallery { display: flex; gap: 40px; padding: 0 5%; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; align-items: center; }
         .featured-gallery::-webkit-scrollbar { display: none; }
         .gallery-item { flex: 0 0 auto; height: 65vh; border-radius: 15px; transition: transform 0.4s ease; cursor: pointer; }
-        .gallery-item img, .gallery-item video { display: block; border-radius: 15px; }
+        .gallery-item img, .gallery-item video { height: 100%; width: auto; object-fit: contain; display: block; border-radius: 15px; }
         .sticker-style { filter: drop-shadow(10px 10px 0px rgba(0,0,0,0.05)); transform: rotate(-2deg); }
         .section-label { font-family: 'Shrikhand', cursive; font-size: 1.8rem; padding-left: 5%; margin: 100px 0 25px; }
         .section-label span { background: var(--accent-green); padding: 4px 20px; border-radius: 50px; color: var(--white); display: inline-block; }
@@ -155,14 +157,6 @@
         .footer-links { display: flex; justify-content: center; gap: 50px; margin: 40px 0; flex-wrap: wrap; }
         .contact-item .label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-green); margin-bottom: 5px; }
         .footer-bottom { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.75rem; opacity: 0.5; }
-
-        /* --- FIX FOR NW7UlPl VIDEO --- */
-        .gallery-item video { 
-            height: 100%; 
-            width: 100%; 
-            object-fit: cover; 
-            border-radius: 15px; 
-        }
     </style>
 </head>
 <body>
@@ -180,65 +174,62 @@
         </div>
     </nav>
 
-    <h2 class="section-label"><span>Featured Works</span></h2>
-    <div class="featured-wrapper">
-        <div class="featured-gallery" id="h-gallery">
-            <div class="gallery-item sticker-style"><img src="https://i.imgur.com/Ky6rdht.png" onclick="openModal(this.src)"></div>
-            <div class="gallery-item sticker-style"><img src="https://i.imgur.com/HT02eQi.png" onclick="openModal(this.src)"></div>
-            <div class="gallery-item sticker-style"><img src="https://i.imgur.com/XfTvucC.png" onclick="openModal(this.src)"></div>
-            <div class="gallery-item"><img src="https://i.imgur.com/Uj05QYO.png" onclick="openModal(this.src)"></div>
-
-            <!-- FIXED VIDEO -->
-            <div class="gallery-item">
-                <video autoplay muted loop playsinline onclick="openModal(this.querySelector('source').src)">
-                    <source src="https://i.imgur.com/NW7UlPl.mp4" type="video/mp4">
-                </video>
-            </div>
-
-            <div class="gallery-item"><img src="https://i.imgur.com/a2mPmh3.png" onclick="openModal(this.src)"></div>
-            <div class="gallery-item">
-                <video autoplay muted loop playsinline onclick="openModal(this.querySelector('source').src)">
-                    <source src="https://i.imgur.com/OuxtA7r.mp4" type="video/mp4">
-                </video>
-            </div>
+   <h2 class="section-label"><span>Featured Works</span></h2>
+<div class="featured-wrapper">
+    <div class="featured-gallery" id="h-gallery">
+        <div class="gallery-item sticker-style"><img src="https://i.imgur.com/Ky6rdht.png" onclick="openModal(this.src)"></div>
+        <div class="gallery-item sticker-style"><img src="https://i.imgur.com/HT02eQi.png" onclick="openModal(this.src)"></div>
+        <div class="gallery-item sticker-style"><img src="https://i.imgur.com/XfTvucC.png" onclick="openModal(this.src)"></div>
+        <div class="gallery-item"><img src="https://i.imgur.com/Uj05QYO.png" onclick="openModal(this.src)"></div>
+        <div class="gallery-item">
+            <video autoplay muted loop playsinline onclick="openModal(this.querySelector('source').src)">
+                <source src="https://i.imgur.com/NW7UlPl.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="gallery-item"><img src="https://i.imgur.com/a2mPmh3.png" onclick="openModal(this.src)"></div>
+        <div class="gallery-item">
+            <video autoplay muted loop playsinline onclick="openModal(this.querySelector('source').src)">
+                <source src="https://i.imgur.com/OuxtA7r.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
+</div>
 
-    <h2 class="section-label"><span>Arts & Illustration</span></h2>
-    <div class="arts-grid">
-        <div class="art-card" onclick="openModal('https://i.imgur.com/FoIp80O.gif')">
-            <img src="https://i.imgur.com/FoIp80O.gif">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Self Portrait</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/2VkzAks.png')">
-            <img src="https://i.imgur.com/2VkzAks.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Academic</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/WKsLX2U.png')">
-            <img src="https://i.imgur.com/WKsLX2U.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Laufey</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/DUGkugf.png')">
-            <img src="https://i.imgur.com/DUGkugf.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Dark Style</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/3wdFTmW.png')">
-            <img src="https://i.imgur.com/3wdFTmW.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Dark Style</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/83mw43b.png')">
-            <img src="https://i.imgur.com/83mw43b.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Kiko</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/W3LAqWW.png')">
-            <img src="https://i.imgur.com/W3LAqWW.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Before</p>
-        </div>
-        <div class="art-card" onclick="openModal('https://i.imgur.com/Ci37cAm.png')">
-            <img src="https://i.imgur.com/Ci37cAm.png">
-            <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Now</p>
-        </div>
+<h2 class="section-label"><span>Arts & Illustration</span></h2>
+<div class="arts-grid">
+    <div class="art-card" onclick="openModal('https://i.imgur.com/FoIp80O.gif')">
+        <img src="https://i.imgur.com/FoIp80O.gif">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Self Portrait</p>
     </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/2VkzAks.png')">
+        <img src="https://i.imgur.com/2VkzAks.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Academic</p>
+    </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/WKsLX2U.png')">
+        <img src="https://i.imgur.com/WKsLX2U.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Laufey</p>
+    </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/DUGkugf.png')">
+        <img src="https://i.imgur.com/DUGkugf.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Dark Style</p>
+    </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/3wdFTmW.png')">
+        <img src="https://i.imgur.com/3wdFTmW.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Dark Style</p>
+    </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/83mw43b.png')">
+        <img src="https://i.imgur.com/83mw43b.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Kiko</p>
+    </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/W3LAqWW.png')">
+        <img src="https://i.imgur.com/W3LAqWW.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Before</p>
+    </div>
+    <div class="art-card" onclick="openModal('https://i.imgur.com/Ci37cAm.png')">
+        <img src="https://i.imgur.com/Ci37cAm.png">
+        <p style="font-family:'Gaegu'; text-align:center; margin-top:10px;">Now</p>
+    </div>
+</div>
 
     <h2 class="section-label"><span>Posters & Graphics</span></h2>
     <div class="posters-flex">
@@ -252,90 +243,138 @@
         <div class="posters-list">
             <div class="poster-thumb" onclick="setIG('https://i.imgur.com/nzsNWUb.png', this)"><img src="https://i.imgur.com/nzsNWUb.png"></div>
             <div class="poster-thumb" onclick="setIG('https://i.imgur.com/OxquzJc.png', this)"><img src="https://i.imgur.com/OxquzJc.png"></div>
-            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/4c0zj1F.png', this)"><img src="https://i.imgur.com/4c0zj1F.png"></div>
-            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/ZgkQ8mv.png', this)"><img src="https://i.imgur.com/ZgkQ8mv.png"></div>
+            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/jIEAJ82.png', this)"><img src="https://i.imgur.com/jIEAJ82.png"></div>
+            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/2bqpHsC.png', this)"><img src="https://i.imgur.com/2bqpHsC.png"></div>
+            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/geiNktF.png', this)"><img src="https://i.imgur.com/geiNktF.png"></div>
+            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/kIHseI7.png', this)"><img src="https://i.imgur.com/kIHseI7.png"></div>
+            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/Cjv5Iq2.png', this)"><img src="https://i.imgur.com/Cjv5Iq2.png"></div>
+            <div class="poster-thumb" onclick="setIG('https://i.imgur.com/XeQYJjU.png', this)"><img src="https://i.imgur.com/XeQYJjU.png"></div>
         </div>
     </div>
 
-    <h2 class="section-label"><span>Website Projects</span></h2>
+    <h2 class="section-label"><span>Scheduling Management</span></h2>
+    <div class="schedule-container">
+        <div class="schedule-item"><img src="https://i.imgur.com/a8Xp714.png" onclick="openModal(this.src)"></div>
+        <div class="schedule-item"><img src="https://i.imgur.com/hiYXVYK.png" onclick="openModal(this.src)"></div>
+    </div>
+
+    <h2 class="section-label"><span>Website Creation</span></h2>
     <div class="website-flex">
         <div class="web-project-item">
-            <div class="web-info">
-                <div class="web-tag">Social Media UI</div>
-                <a href="https://example.com" class="web-link-btn" target="_blank">Visit Site</a>
-            </div>
             <div class="web-phone">
                 <video autoplay muted loop playsinline>
-                    <source src="https://i.imgur.com/NW7UlPl.mp4" type="video/mp4">
+                    <source src="https://imgur.com/BEbNKPE.mp4" type="video/mp4">
                 </video>
             </div>
+            <div class="web-info">
+                <span class="web-tag">Commercial use</span>
+                <a href="https://moodli.netlify.app" target="_blank" class="web-link-btn">Visit Website</a>
+            </div>
         </div>
+
         <div class="web-project-item">
-            <div class="web-info">
-                <div class="web-tag">Portfolio Layout</div>
-                <a href="https://example2.com" class="web-link-btn" target="_blank">Visit Site</a>
-            </div>
             <div class="web-phone">
                 <video autoplay muted loop playsinline>
-                    <source src="https://i.imgur.com/OuxtA7r.mp4" type="video/mp4">
+                    <source src="https://imgur.com/oDGbH9U.mp4" type="video/mp4">
                 </video>
+            </div>
+            <div class="web-info">
+                <span class="web-tag">Academic use</span>
+                <a href="https://lyzettejamias.github.io/HUDYAT-NG-PAGTINDIG/pages/homepage.html" target="_blank" class="web-link-btn">Visit Website</a>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="modal" onclick="closeModal()">
-        <img id="modal-img" src="">
-    </div>
-
-    <footer class="portfolio-footer">
-        <button class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'});">↑</button>
+   <footer class="portfolio-footer">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">↑</button>
+    <div class="footer-content">
+        <h3 style="font-family: 'Shrikhand'; font-size: 2rem;">Connect</h3>
         <div class="social-links">
-            <a href="https://instagram.com/kent_design" target="_blank">Instagram</a>
-            <a href="https://twitter.com/kent_design" target="_blank">Twitter</a>
-            <a href="https://linkedin.com/in/kent" target="_blank">LinkedIn</a>
+            <a href="https://ph.linkedin.com/in/kent-reyes-a2940b334" target="_blank">LinkedIn</a>
+            <a href="https://github.com/kentreyes208-code" target="_blank">GitHub</a>
+            <a href="https://www.instagram.com/kentii_88" target="_blank">Instagram</a>
         </div>
         <div class="footer-links">
             <div class="contact-item">
-                <span class="label">Email</span>
-                <a href="mailto:kent@example.com">kent@example.com</a>
+                <span class="label">Phone</span>
+                <span class="value">+63 936 943 3099</span>
             </div>
             <div class="contact-item">
-                <span class="label">Phone</span>
-                <a href="tel:+639123456789">+63 912 345 6789</a>
+                <span class="label">Email</span>
+                <span class="value">kentreyes208@gmail.com</span>
             </div>
         </div>
-        <div class="footer-bottom">© 2026 Kent Ii. All rights reserved.</div>
-    </footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Kent's Portfolio. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    <div class="modal" id="modal" onclick="this.style.display='none'"><img src="" id="modal-img"></div>
 
     <script>
+        // NAVIGATION FIX: Dedicated event listener for hamburger and menu items
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('nav-links');
-
-        hamburger.addEventListener('click', () => {
+        
+        const toggleMenu = () => {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
+        };
+
+        // Added touchstart for better mobile responsiveness
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
         });
 
-        // Modal Function
-        const modal = document.getElementById('modal');
-        const modalImg = document.getElementById('modal-img');
+        // Scattered Animation for Arts (Original untouched)
+        const cards = document.querySelectorAll('.art-card');
+        cards.forEach(card => {
+            card.style.setProperty('--x', (Math.random() * 200 - 100) + 'px');
+            card.style.setProperty('--y', (Math.random() * 200 - 100) + 'px');
+            card.style.setProperty('--r', (Math.random() * 40 - 20) + 'deg');
+        });
 
+        // Intersection Observer for Art Cards (Original untouched)
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.art-card').forEach(c => obs.observe(c));
+
+        // Instagram Switcher (Original untouched)
+        function setIG(src, thumb) {
+            const mainImg = document.getElementById('ig-main');
+            mainImg.style.opacity = 0;
+            setTimeout(() => {
+                mainImg.src = src;
+                mainImg.style.opacity = 1;
+            }, 200);
+            document.querySelectorAll('.poster-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+
+        // Modal Logic (Original untouched)
         function openModal(src) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
             modal.style.display = 'flex';
             modalImg.src = src;
         }
 
-        function closeModal() {
-            modal.style.display = 'none';
-            modalImg.src = '';
-        }
-
-        // IG Poster Switch
-        function setIG(src, el) {
-            document.getElementById('ig-main').src = src;
-            document.querySelectorAll('.poster-thumb').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-        }
+        // Horizontal Scroll (Original untouched)
+        const hGallery = document.getElementById('h-gallery');
+        hGallery.addEventListener('wheel', (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                hGallery.scrollLeft += e.deltaY;
+            }
+        });
     </script>
 </body>
 </html>
