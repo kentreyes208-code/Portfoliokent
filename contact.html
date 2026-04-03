@@ -201,6 +201,12 @@
 
         .footer-bottom { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.75rem; opacity: 0.5; }
 
+        /* --- MOBILE & IPAD FIXES --- */
+        @media (max-width: 1024px) {
+            /* iPad Social Icons Scaling */
+            .social-icon { width: 30px; height: 30px; }
+        }
+
         @media (max-width: 768px) {
             nav { justify-content: flex-start; }
             .hamburger { display: flex; }
@@ -215,9 +221,39 @@
             .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            
+            /* TV Screen & Buttons Scaling */
             .tv-container { width: 100%; }
-            .tv-screen { width: 45%; height: 38%; margin-right: 12%; margin-top: 4%; }
+            .tv-screen { 
+                width: 45%; height: 38%; 
+                margin-right: 12%; margin-top: 4%; 
+                gap: 8px; padding: 10px; 
+            }
+            .tv-link { 
+                padding: 8px; font-size: 0.7rem; 
+                max-width: 140px; 
+            }
+
+            /* Social Icons Scaling */
+            .social-icon { width: 28px; height: 28px; }
+
+            /* Human Image Focal Point Scaling */
+            .human-graphic { 
+                width: 220px; /* Nilakihan para maging focal point */
+                max-width: 50vw;
+                height: auto;
+                left: 10px;
+                bottom: 20px;
+            }
+
             .paper-container { flex-direction: column; padding: 40px 20px; transform: rotate(0); }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra scaling for very small screens */
+            .human-graphic { width: 180px; }
+            .tv-link { font-size: 0.65rem; padding: 6px; }
+            .social-icon { width: 25px; height: 25px; }
         }
     </style>
 </head>
@@ -287,37 +323,7 @@
     </form>
     <p id="form-message" style="display:none; color:green; margin-top:10px;">Thank you! Your message has been sent.</p>
 </div>
-
-<script>
-    const form = document.getElementById('contact-form');
-    const messageEl = document.getElementById('form-message');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // stop page reload
-        const formData = new FormData(form);
-
-        try {
-            const response = await fetch(form.action, {
-                method: form.method,
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                messageEl.style.display = 'block';
-                form.reset();
-            } else {
-                messageEl.style.display = 'block';
-                messageEl.style.color = 'red';
-                messageEl.textContent = 'Oops! Something went wrong. Please try again.';
-            }
-        } catch (error) {
-            messageEl.style.display = 'block';
-            messageEl.style.color = 'red';
-            messageEl.textContent = 'Oops! Something went wrong. Please try again.';
-        }
-    });
-</script>
+</div>
 </section>
 
 <footer class="portfolio-footer">
@@ -346,6 +352,33 @@
 </footer>
 
 <script>
+const form = document.getElementById('contact-form');
+const messageEl = document.getElementById('form-message');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault(); 
+    const formData = new FormData(form);
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            messageEl.style.display = 'block';
+            form.reset();
+        } else {
+            messageEl.style.display = 'block';
+            messageEl.style.color = 'red';
+            messageEl.textContent = 'Oops! Something went wrong. Please try again.';
+        }
+    } catch (error) {
+        messageEl.style.display = 'block';
+        messageEl.style.color = 'red';
+        messageEl.textContent = 'Oops! Something went wrong. Please try again.';
+    }
+});
+
 // Menu
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
@@ -357,8 +390,6 @@ hamburger.addEventListener('click', () => {
 // Dragging
 function makeDraggable(stickerClass, boundaryId) {
     const stickers = document.querySelectorAll(stickerClass);
-    const boundary = document.getElementById(boundaryId);
-
     stickers.forEach(sticker => {
         let isDragging = false, startX, startY, initialLeft, initialTop;
         sticker.addEventListener('mousedown', startDrag);
@@ -381,10 +412,8 @@ function makeDraggable(stickerClass, boundaryId) {
             if (!isDragging) return;
             const currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
             const currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-            
             let moveX = initialLeft + (currentX - startX);
             let moveY = initialTop + (currentY - startY);
-            
             sticker.style.left = moveX + 'px';
             sticker.style.top = moveY + 'px';
         }
