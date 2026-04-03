@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kent's Portfolio | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ghibli-green: #dcedc1;
+            --dark-green: #2d6a4f;
+            --id-bg: #89c070;
+            --text-color: #ffffff;
+            --accent-green: #a7c957;
+            --footer-bg: #0d1f14;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #000;
+            color: var(--text-color);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* --- Master Background --- */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -3;
+            background: url('https://i.imgur.com/keEGU2p.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+        }
+
+        /* --- Star Assets --- */
+        .star-asset {
+            position: absolute;
+            width: 65px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+            z-index: 1;
+            animation: twinkle-effect 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle-effect {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+        }
+
+        /* --- Floating Leaves --- */
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; 
+            pointer-events: none;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--accent-green);
+            opacity: 0;
+            border-radius: 50% 0 50% 0;
+            top: -5vh; 
+            animation: fall 10s infinite linear;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(105vh) translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- BRANDED NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-family: 'Comfortaa', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            opacity: 0.85;
+        }
+
+        nav a:hover {
+            color: var(--ghibli-green);
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            position: absolute;
+            right: 5%;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            nav { justify-content: flex-start; }
+            .hamburger { display: flex; }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 80%;
+                background: rgba(13, 31, 20, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: 0.5s ease-in-out;
+            }
+
+            .nav-links.active { right: 0; }
+
+            .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            
+            nav a { font-size: 1.1rem; }
+        }
+
+        /* --- Section Styles --- */
+        .section-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-family: 'Shrikhand', cursive;
+            font-size: clamp(3.5rem, 10vw, 6.5rem);
+            line-height: 1;
+        }
+
+        .hero-text h1 span {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-text h1 span::after {
+            content: '';
+            position: absolute;
+            width: 115%; height: 133%;
+            border: 4px solid white;
+            left: -7.5%; top: -20%;
+            border-radius: 50% 48% 52% 55%;
+        }
+
+        .id-section {
+            background: rgba(220, 237, 193, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 100px 0;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .id-card-wrapper {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .id-card {
+            background-color: #6a994e;
+            width: 350px;
+            height: 480px;
+            border-radius: 30px;
+            padding: 25px;
+            border: 8px solid var(--dark-green);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            font-family: 'Gaegu', cursive;
+            color: #f2e8cf;
+            z-index: 2;
+        }
+
+        .id-photo {
+            width: 100%; height: 210px;
+            background: #a7c957;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .id-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        .side-pic-frame {
+            position: relative;
+            width: 500px;
+            z-index: 2;
+        }
+
+        .side-pic-frame img.main-blob {
+            width: 100%;
+            border: 4px solid var(--dark-green);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 70%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .sticker {
+            position: absolute;
+            z-index: 3;
+            filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.2));
+        }
+
+        .sticker-new {
+            position: absolute;
+            z-index: 4;
+            width: 140px;
+            filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.2));
+            pointer-events: none;
+        }
+
+        /* FIXED BUTTON STYLE */
+        .btn {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--dark-green);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            margin-top: 30px;
+            font-family: 'Comfortaa', cursive;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+        }
+
+        /* --- Offer Section --- */
+        .offer-section {
+            background-color: #e2f1cd; 
+            width: 100vw;
+            min-height: 100vh;
+            padding: 80px 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .offer-title-svg {
+            width: 600px;
+            height: 250px;
+            filter: drop-shadow(0 0 12px rgba(137, 192, 112, 0.8)); 
+            margin-bottom: 20px;
+        }
+
+        .offer-title-text {
+            fill: #8dbd74; 
+            font-family: 'Shrikhand', cursive;
+            font-size: 80px;
+        }
+
+        .offer-container {
+            width: 90%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 5;
+        }
+
+        .offer-item {
+            background-color: #a4d07d; 
+            border: 4px solid transparent; 
+            border-radius: 35px;
+            padding: 45px 30px;
+            width: 320px;
+            text-align: center;
+            font-family: 'Gaegu', cursive; 
+            color: #1b4332;
+        }
+
+        .offer-item h3 {
+            font-family: 'Shrikhand', cursive;
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: #1b4332;
+        }
+
+        .offer-item p {
+            font-size: 1.25rem;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+
+        .offer-sticker {
+            position: absolute;
+            width: 110px;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        /* --- Footer --- */
+        .portfolio-footer {
+            position: relative;
+            background-color: var(--footer-bg);
+            color: #ffffff;
+            padding: 100px 20px 40px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .back-to-top {
+            position: absolute;
+            right: 40px;
+            top: -25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            color: var(--footer-bg);
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background-color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Comfortaa';
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover { opacity: 1; color: var(--accent-green); }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item .label {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 5px;
+        }
+
+        .contact-item .value { font-family: 'Comfortaa'; font-size: 1rem; }
+
+        .footer-bottom {
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.75rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 900px) {
+            .id-card-wrapper { flex-direction: column; }
+            .side-pic-frame { width: 85%; }
+            .id-section { width: 100%; left: 0; transform: none; margin-left: 0; }
+            .offer-title-svg { width: 100%; height: 180px; }
+            .offer-title-text { font-size: 45px; }
+            .back-to-top { right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-container"></div>
+    <div class="bg-overlay"></div>
+    <div id="particles"></div>
+
+    <nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="nav-links" id="nav-links">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="works.html">Works</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <section class="section-container" id="home">
+        <div class="hero-content">
+            <img src="https://imgur.com/OvFrMAP.png" class="star-asset" style="top: -0%; left: 5%; width: 150px;">
+            <img src="https://imgur.com/OvFrMAP.png" class="star-asset" style="top: 0%; right: 5%; width: 200px; animation-delay: 1s;">
+            
+            <div class="hero-text">
+                <p style="font-family: 'Shrikhand'; font-size: 4.5rem; color: var(--ghibli-green); margin-bottom: -10px;">Kent's</p>
+                <h1><span>Portfolio</span></h1>
+                <p style="font-family: 'Comfortaa'; font-weight: bold; margin-top: 25px; color: var(--ghibli-green);">Creative Virtual Assistant • Graphic Designer • Digital Artist</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <a href="works.html" class="btn">View My Work</a>
+                    <a href="https://drive.google.com/file/d/1eP6_ppLWJY6qDcUs63m4-VaEY6-uvori/view" target="_blank" class="btn">PDF RESUME</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container id-section">
+        <img src="https://imgur.com/OvFrMAP.png" class="star-asset" style="top: 5%; left: 5%; width: 200px;">
+        <img src="https://imgur.com/OvFrMAP.png" class="star-asset" style="bottom: 10%; left: 15%; width: 200px; animation-delay: 2s;">
+        <img src="https://imgur.com/3pCfYEg.png" class="star-asset" style="top: 25%; right: -5%; width: 900px; opacity: 0.9; animation-delay: 86400s;">
+        <img src="https://imgur.com/OvFrMAP.png" class="star-asset" style="top: 4%; right: 2%; width: 300px; animation-delay: 2s;">
+
+        <div class="id-card-wrapper">
+            <div class="id-card">
+                <div class="id-photo">
+                    <img src="https://i.imgur.com/FoIp80O.png" alt="Kent">
+                </div>
+                <div class="id-details" style="text-align: center;">
+                    <p style="font-weight: bold; font-size: 0.8rem; letter-spacing: 1px;">NO I.D, NO ENTRY</p>
+                    <h2 style="font-family: 'Shrikhand'; font-size: 2.2rem; border-bottom: 2px solid var(--dark-green); margin-bottom: 10px;">KENTII</h2>
+                    <div style="text-align: left; font-size: 1.1rem; line-height: 1.8;">
+                        <p><strong>PRONOUNS:</strong> HE/HIM</p>
+                        <p><strong>LOCATION:</strong> BATANGAS CITY</p>
+                        <p><strong>MAJOR:</strong> BS COMPUTER SCIENCE</p>
+                    </div>
+                    <p style="margin-top: 20px; font-style: italic;">"I need the J** word!!"</p>
+                </div>
+            </div>
+
+            <div class="side-pic-frame">
+                <img src="https://imgur.com/JHcDQrS.png" class="main-blob" alt="Kent View">
+                <img src="https://imgur.com/rkzZIHY.png" class="sticker" style="top: -40px; right: -20px; width: 150px; transform: rotate(15deg);">
+                <img src="https://imgur.com/2tOsi7c.png" class="sticker" style="top: -30px; left: -20px; width: 250px; transform: rotate(15deg);">
+                <img src="https://imgur.com/xe1lpzn.png" class="sticker-new" style="bottom: 40px; right: -40px; width: 250px; transform: rotate(-12deg);">
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <h2 style="font-family: 'Shrikhand'; font-size: 2rem; color: var(--text-color);">Hello! Call me Kent.</h2>
+                    <p style="font-family: 'Comfortaa'; font-size: 1.1rem; color: var(--text-color)">Would you like to create enchantment through digital art and code with me?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="offer-section">
+        <img src="https://imgur.com/OvFrMAP.png" class="offer-sticker" style="top: 10%; left: 5%; width: 120px; opacity: 0.8;">
+        <img src="https://imgur.com/OvFrMAP.png" class="offer-sticker" style="top: 15%; right: 5%; width: 180px;">
+        <img src="https://imgur.com/OvFrMAP.png" class="offer-sticker" style="bottom: 15%; left: 80%; width: 140px;">
+        <img src="https://imgur.com/OvFrMAP.png" class="offer-sticker" style="bottom: 20%; left: 2%; width: 160px; opacity: 0.8;">
+
+        <svg viewBox="0 0 600 250" class="offer-title-svg">
+            <path id="offerCurve" d="M 60,220 A 240,160 0 0 1 540,220" fill="transparent" />
+            <text class="offer-title-text">
+                <textPath href="#offerCurve" startOffset="50%" text-anchor="middle">
+                    What I Offer
+                </textPath>
+            </text>
+        </svg>
+
+        <div class="offer-container">
+            <div class="offer-item">
+                <h3>Poster Design</h3>
+                <p>Academic & Commercial layouts that grab attention</p>
+            </div>
+            <div class="offer-item">
+                <h3>Digital Art</h3>
+                <p>Custom illustrations with a magical, dreamy feel</p>
+            </div>
+            <div class="offer-item">
+                <h3>Virtual Aide</h3>
+                <p>Content scheduling, emails, and digital management.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="portfolio-footer">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top" aria-label="Back to top">
+            ↑
+        </button>
+
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 style="font-family: 'Shrikhand'; font-size: 2rem;">Connect</h3>
+                <div class="social-links">
+                    <a href="https://ph.linkedin.com/in/kent-reyes-a2940b334" target="_blank">LinkedIn</a>
+                     <a href="https://github.com/kentreyes208-code" target="_blank">GitHub</a>
+                      <a href="https://www.instagram.com/kentii_88" target="_blank">Instagram</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="contact-item">
+                    <span class="label">Phone</span>
+                    <span class="value">+63 936 943 3099</span>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Email</span>
+                    <span class="value">kentreyes208@gmail.com</span>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kent's Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+   <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+   </script>
+        <script>
+        const container = document.getElementById('particles');
+        
+        function createLeaves() {
+            for (let i = 0; i < 15; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.animationDelay = Math.random() * 10 + 's';
+                leaf.style.animationDuration = (Math.random()) * 5 + 8 + 's';
+                container.appendChild(leaf);
+            }
+        }
+        
+        createLeaves();
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 15;
+            const y = (e.clientY / window.innerHeight - 0.5) * 15;
+            
+            document.querySelectorAll('.star-asset, .sticker, .sticker-new, .offer-sticker').forEach(el => {
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

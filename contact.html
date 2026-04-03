@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kent's Portfolio | Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Comfortaa:wght@400;700&family=Gaegu:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #DCEDC1; 
+            --accent-green: #a4d07d;
+            --dark-green: #1b4332;
+            --white: #ffffff;
+            --footer-bg: #0d1f14;
+            --tv-screen-bg: rgba(0,0,0,0.4);
+            --paper-color: #fffef0; 
+            --paper-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--dark-green);
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display:flex; justify-content:center; align-items:center;
+            padding:15px 5%; position:fixed; width:100%; top:0; z-index:100;
+            background: rgba(220,237,193,0.8); backdrop-filter: blur(12px);
+        }
+
+        .nav-links { display:flex; gap:35px; }
+
+        nav a {
+            text-decoration:none; color:var(--dark-green); font-weight:700;
+            font-family: 'Comfortaa', cursive; text-transform: uppercase;
+            letter-spacing:1.5px; font-size:0.75rem; transition:0.3s;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            position: absolute;
+            right: 5%;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 24px; height: 2px;
+            background-color: var(--dark-green);
+            transition: 0.4s;
+        }
+
+        /* --- HERO CONTACT --- */
+        .hero-contact {
+            min-height:100vh; display:flex; flex-direction:column;
+            align-items:center; justify-content:center; position:relative;
+            padding:120px 20px 60px; overflow:hidden;
+        }
+
+        .contact-header { text-align:center; margin-bottom:10px; z-index:10; }
+        .contact-header h1 {
+            font-family:'Shrikhand', cursive; font-size:clamp(2.5rem,6vw,4.5rem);
+            color:var(--dark-green);
+        }
+        .contact-header p {
+            font-family:'Gaegu', cursive; font-size:1.5rem; margin-top:5px;
+        }
+
+        .tv-container {
+            position:relative; width:980px; max-width:95%;
+            aspect-ratio:1.2/1; z-index:5; display:flex;
+            align-items:center; justify-content:center; margin-bottom:20px;
+        }
+
+        .tv-frame {
+            position:absolute; width:110%; height:110%;
+            background:url('https://imgur.com/HToFgnJ.png') no-repeat center center;
+            background-size:contain; pointer-events:none; z-index:1;
+        }
+
+        .tv-screen {
+            position:relative; z-index:2;
+            width:30%; height:25%;
+            background-color: var(--tv-screen-bg);
+            border-radius:15px;
+            margin-right:11%; margin-top:2%;
+            display:flex; flex-direction:column; align-items:center;
+            justify-content:center; gap:12px; padding:20px;
+        }
+
+        .tv-link {
+            width:90%; max-width:220px; padding:12px;
+            background: var(--dark-green); color:white; text-decoration:none;
+            text-align:center; border-radius:50px; font-family:'Comfortaa', cursive;
+            font-size:0.85rem; font-weight:bold; transition: 0.3s;
+        }
+
+        .tv-link:hover { background: var(--accent-green); transform: scale(1.05); }
+
+        .human-graphic {
+            position:absolute; bottom:0; left:0;
+            width:800px; max-width:70vw; z-index:1; pointer-events:none;
+        }
+
+        /* --- FORM SECTION --- */
+        .form-section {
+            padding: 100px 20px;
+            display: flex; flex-direction: column;
+            align-items: center; background: var(--white);
+            position: relative; z-index: 10;
+        }
+
+        .section-title {
+            font-family: 'Shrikhand', cursive;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: var(--dark-green); margin-bottom: 50px;
+        }
+
+        .paper-container {
+            background-color: var(--paper-color);
+            width: 100%; max-width: 900px;
+            padding: 60px; border-radius: 4px;
+            box-shadow: 5px 15px 30px var(--paper-shadow);
+            display: flex; gap: 50px; position: relative;
+            transform: rotate(-1deg);
+            background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .paper-container::before {
+            content: ''; position: absolute;
+            left: 40px; top: 0; bottom: 0; width: 2px;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        .paper-content-left { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .paper-content-left img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
+
+        .paper-form-right { flex: 1; }
+        .paper-form-right h2 { font-family: 'Comfortaa', cursive; margin-bottom: 25px; color: var(--dark-green); }
+
+        .paper-input, .paper-textarea {
+            width: 100%; padding: 15px 0; margin-bottom: 25px;
+            background: transparent; border: none; border-bottom: 2px solid #ddd;
+            font-family: 'Nunito', sans-serif; outline: none;
+        }
+
+        .paper-send-btn {
+            padding: 12px 40px; background: var(--dark-green); color: white;
+            border: none; border-radius: 5px; cursor: pointer; font-family: 'Comfortaa';
+            transition: 0.3s;
+        }
+
+        .paper-send-btn:hover { background: var(--accent-green); }
+
+        .paper-socials { margin-top: 20px; display: flex; gap: 20px; }
+
+        .social-icon {
+            width: 35px; height: 35px;
+            filter: grayscale(1) brightness(0.5); /* Monochromatic effect */
+            transition: 0.3s;
+        }
+        
+        .social-icon:hover { filter: none; opacity: 1; }
+
+        /* STICKERS */
+        .sticker {
+            position:absolute; width:120px; cursor:grab; z-index:20;
+            filter:drop-shadow(5px 5px 10px rgba(0,0,0,0.1)); touch-action:none;
+        }
+
+        .drag-hint { font-family: 'Gaegu', cursive; font-size: 0.9rem; opacity: 0.6; margin-bottom: 10px; }
+
+        /* FOOTER */
+        .portfolio-footer {
+            position: relative; background-color: var(--footer-bg); color: #ffffff;
+            padding: 100px 20px 40px; width: 100%; z-index: 10; text-align: center;
+        }
+
+        .back-to-top {
+            position: absolute; right: 40px; top: -25px; width: 50px; height: 50px;
+            border-radius: 50%; background-color: var(--accent-green); color: var(--footer-bg);
+            border: none; cursor: pointer; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .social-links { display: flex; gap: 30px; justify-content: center; margin: 20px 0; }
+        .social-links a { color: white; text-decoration: none; font-family: 'Comfortaa'; font-size: 0.8rem; opacity: 0.7; transition: 0.3s; }
+        .social-links a:hover { opacity: 1; color: var(--accent-green); }
+
+        .footer-links { display: flex; justify-content: center; gap: 50px; margin: 40px 0; flex-wrap: wrap; }
+        .contact-item .label { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--accent-green); margin-bottom: 5px; }
+        .contact-item .value { font-family: 'Comfortaa'; font-size: 1rem; }
+
+        .footer-bottom { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.75rem; opacity: 0.5; }
+
+        @media (max-width: 768px) {
+            nav { justify-content: flex-start; }
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed; right: -100%; top: 0; height: 100vh; width: 80%;
+                background: var(--dark-green); flex-direction: column;
+                justify-content: center; align-items: center; gap: 30px;
+                transition: 0.5s ease-in-out;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { color: white; }
+            .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            .tv-container { width: 100%; }
+            .tv-screen { width: 45%; height: 38%; margin-right: 12%; margin-top: 4%; }
+            .paper-container { flex-direction: column; padding: 40px 20px; transform: rotate(0); }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links" id="nav-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="works.html">Works</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</nav>
+
+<section class="hero-contact" id="section1">
+    <div class="contact-header">
+        <h1>Let's Create Magic</h1>
+        <p>Currently open for freelance projects and VA opportunities.</p>
+        <span class="drag-hint">(You can drag the stickers!)</span>
+    </div>
+
+    <div class="tv-container">
+        <div class="tv-frame"></div>
+        <div class="tv-screen">
+            <a href="https://drive.google.com/file/d/1eP6_ppLWJY6qDcUs63m4-VaEY6-uvori/view" target="_blank" class="tv-link">PDF RESUME</a>
+            <a href="https://ph.linkedin.com/in/kent-reyes-a2940b334" target="_blank" class="tv-link">LinkedIn</a>
+          <a href="https://www.seek.com.au/profiles/kent-reyes-0jNWQ14tMx" target="_blank" class="tv-link">Jobstreet</a>
+        </div>
+    </div>
+
+    <img src="https://imgur.com/4WyQnui.png" class="sticker s1-sticker" style="top:25%; right:12%;" alt="Sticker">
+    <img src="https://imgur.com/bAi1KGc.png" class="sticker s1-sticker" style="top:55%; right:8%;" alt="Sticker">
+    <img src="https://imgur.com/E5rICG8.png" class="sticker s1-sticker" style="top:45%; left:10%;" alt="Sticker">
+
+    <img src="https://imgur.com/XWZuuy4.png" class="human-graphic" alt="Kent Visual">
+</section>
+
+<section class="form-section" id="section2">
+    <h1 class="section-title">Contact Me</h1>
+    <span class="drag-hint">(Stickers here are draggable too!)</span>
+    
+    <img src="https://imgur.com/zNvWQOZ.png" class="sticker s2-sticker" style="top:10%; left:5%; width: 80px;" alt="Sticker">
+    <img src="https://imgur.com/4WyQnui.png" class="sticker s2-sticker" style="bottom:10%; right:5%; width: 80px;" alt="Sticker">
+    <img src="https://imgur.com/E5rICG8.png" class="sticker s2-sticker" style="top:45%; left:10%; width: 70px;" alt="Sticker">
+
+    <div class="paper-container">
+        <div class="paper-content-left">
+            <img src="https://imgur.com/QDP54vj.png" alt="Reference">
+            <p style="font-family: 'Gaegu', cursive; font-size: 1.2rem;">Follow my journey online.</p>
+            <div class="paper-socials">
+                <a href="https://www.instagram.com/kentii_88" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="social-icon" alt="Instagram"></a>
+                <a href="https://www.facebook.com/kent.reyes.904339/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/20/20673.png" class="social-icon" alt="Facebook"></a>
+                <a href="https://www.tiktok.com/@kentti0?is_from_webapp=1&sender_device=pc" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="social-icon" alt="TikTok"></a>
+            </div>
+        </div>
+
+      <div class="paper-form-right" id="form-target">
+    <h2>Get In Touch</h2>
+    <form id="contact-form" action="https://formspree.io/f/mbdpzrkd" method="POST">
+        <input type="text" name="name" class="paper-input" placeholder="Your name:" required>
+        <input type="email" name="email" class="paper-input" placeholder="Email Address:" required>
+        <textarea name="message" class="paper-textarea" placeholder="Write your message here:" rows="4" required></textarea>
+        <button type="submit" class="paper-send-btn">Send Message</button>
+    </form>
+    <p id="form-message" style="display:none; color:green; margin-top:10px;">Thank you! Your message has been sent.</p>
+</div>
+
+<script>
+    const form = document.getElementById('contact-form');
+    const messageEl = document.getElementById('form-message');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // stop page reload
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                messageEl.style.display = 'block';
+                form.reset();
+            } else {
+                messageEl.style.display = 'block';
+                messageEl.style.color = 'red';
+                messageEl.textContent = 'Oops! Something went wrong. Please try again.';
+            }
+        } catch (error) {
+            messageEl.style.display = 'block';
+            messageEl.style.color = 'red';
+            messageEl.textContent = 'Oops! Something went wrong. Please try again.';
+        }
+    });
+</script>
+</section>
+
+<footer class="portfolio-footer">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">↑</button>
+    <div class="footer-content">
+        <h3 style="font-family: 'Shrikhand'; font-size: 2rem;">Connect</h3>
+        <div class="social-links">
+            <a href="https://ph.linkedin.com/in/kent-reyes-a2940b334" target="_blank">LinkedIn</a>
+            <a href="https://github.com/kentreyes208-code" target="_blank">GitHub</a>
+            <a href="https://www.instagram.com/kentii_88" target="_blank">Instagram</a>
+        </div>
+        <div class="footer-links">
+            <div class="contact-item">
+                <span class="label">Phone</span>
+                <span class="value">+63 936 943 3099</span>
+            </div>
+            <div class="contact-item">
+                <span class="label">Email</span>
+                <span class="value">kentreyes208@gmail.com</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Kent's Portfolio. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+});
+
+// Dragging
+function makeDraggable(stickerClass, boundaryId) {
+    const stickers = document.querySelectorAll(stickerClass);
+    const boundary = document.getElementById(boundaryId);
+
+    stickers.forEach(sticker => {
+        let isDragging = false, startX, startY, initialLeft, initialTop;
+        sticker.addEventListener('mousedown', startDrag);
+        sticker.addEventListener('touchstart', startDrag, { passive: false });
+
+        function startDrag(e) {
+            isDragging = true;
+            sticker.style.zIndex = 1000;
+            startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            initialLeft = sticker.offsetLeft;
+            initialTop = sticker.offsetTop;
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            const currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            
+            let moveX = initialLeft + (currentX - startX);
+            let moveY = initialTop + (currentY - startY);
+            
+            sticker.style.left = moveX + 'px';
+            sticker.style.top = moveY + 'px';
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            sticker.style.zIndex = 20;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+        }
+    });
+}
+makeDraggable('.s1-sticker', 'section1');
+makeDraggable('.s2-sticker', 'section2');
+</script>
+</body>
+</html>

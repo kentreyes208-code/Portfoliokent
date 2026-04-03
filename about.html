@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kent's Portfolio | About</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #e6f4d7;
+            --dark-green: #1b4332;
+            --accent-green: #dcedc1;
+            --card-bg: #f0f9e8;
+            --nav-bg: #dcedc1;
+            --g-ghib: #a7c957;
+            --g-oink: #acbb89;
+            --footer-bg: #0d1f14;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            background: var(--bg-color);
+            font-family: 'Comfortaa', cursive;
+            color: var(--dark-green);
+            overflow-x:hidden;
+        }
+
+        /* --- BRANDED NAVIGATION (Nike/H&M Style - Smaller) --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(230, 244, 215, 0.8); /* Matches your about bg with transparency */
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            opacity: 0.85;
+        }
+
+        nav a:hover {
+            color: var(--g-ghib);
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            position: absolute;
+            right: 5%;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--dark-green);
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            nav { justify-content: flex-start; }
+            .hamburger { display: flex; }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 80%;
+                background: var(--dark-green);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: 0.5s ease-in-out;
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { color: white; font-size: 1.1rem; }
+            
+            .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        }
+
+        /* HERO / ABOUT SECTION */
+        .hero-section {
+            display:grid;
+            grid-template-columns:1.2fr 1fr;
+            min-height:100vh;
+            align-items:center;
+            position:relative;
+            padding-top: 60px; /* Space for fixed nav */
+        }
+
+        .hero-content {
+            padding-left:10%;
+            position:relative;
+            z-index:2;
+        }
+
+        .oval-accent {
+            position:absolute;
+            top:20%;
+            left:50%;
+            transform:translate(-70%, -90%);
+            width:300px;
+            height:180px;
+            border:50px solid var(--g-oink);
+            border-radius:90%;
+            z-index:0;
+        }
+
+        .about-title {
+            font-family:'Shrikhand';
+            font-size:4rem;
+            position:relative;
+            z-index:2;
+        }
+
+        .bio-box {
+            background: var(--card-bg);
+            border:3px solid var(--dark-green);
+            border-radius:30px;
+            padding:30px;
+            max-width:520px;
+            line-height:1.7;
+            margin-top:20px;
+        }
+
+        .kent-img-container {
+            position:relative;
+            height:100vh;
+            padding:40px;
+            display:flex;
+            align-items:center;
+            overflow:hidden;
+        }
+
+        .kent-img-container::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+            linear-gradient(to left, var(--bg-color) 50%, transparent),
+            url("https://imgur.com/iitH81B.png");
+            background-size:cover;
+            background-position:center;
+            opacity:.6;
+        }
+
+        .kent-img {
+            width:100%;
+            height:85%;
+            object-fit:cover;
+            border:12px solid var(--dark-green);
+            border-radius:25px;
+            position:relative;
+        }
+
+        /* TECHNICAL EXPERIENCE SECTION */
+        .tech-section {
+            padding:80px 5%;
+            text-align:center;
+            position:relative;
+        }
+
+        .tech-section::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+            linear-gradient(to right, var(--bg-color) 50%, transparent),
+            url("https://imgur.com/iitH81B.png");
+            background-size:cover;
+            opacity:.5;
+        }
+
+        .tech-section > * { position:relative; }
+
+        .main-title {
+            font-family:'Shrikhand';
+            font-size:3.5rem;
+            margin-bottom:50px;
+        }
+
+        .tech-layout {
+            display:flex;
+            justify-content:center;
+            gap:40px;
+            flex-wrap: wrap;
+        }
+
+        .skills-container {
+            background: var(--card-bg);
+            border:2px solid var(--dark-green);
+            border-radius:30px;
+            padding:40px;
+            width:520px;
+        }
+
+        .skills-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            grid-template-rows:repeat(3, auto);
+            gap:20px;
+            justify-items:center;
+        }
+
+        .skill-item {
+            width:110px;
+            height:100px;
+            border:1.5px solid var(--dark-green);
+            border-radius:20px;
+            background:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:5px;
+        }
+
+        .skill-item img {
+            width:120px;
+            height:auto;
+            object-fit:contain;
+        }
+
+        .exp-container {
+            background: var(--dark-green);
+            border-radius:30px;
+            padding: 20px;
+            width:320px;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+
+        .exp-card {
+            background: var(--card-bg);
+            padding:20px;
+            border-radius:15px;
+            font-size:0.95rem;
+            text-align: left;
+        }
+
+        /* BOTTOM SECTION */
+        .bottom-section {
+            padding:120px 5%;
+            display:flex;
+            justify-content:space-around;
+            position:relative;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .bottom-section::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+            linear-gradient(to left, var(--bg-color) 50%, transparent),
+            url("https://imgur.com/iitH81B.png");
+            background-size:cover;
+            opacity:.5;
+        }
+
+        .bottom-section > * { position:relative; }
+
+        .kettle-asset {
+            position:absolute;
+            right:20px;
+            bottom:5%;
+            width:250px;
+        }
+
+        .bottle-asset {
+            position:absolute;
+            left:-20px;
+            bottom:5%;
+            width:400px;
+        }
+
+        .codingexp-tag img, .ability-tag img {
+            width:600px;
+            height:auto;
+            display:block;
+            max-width: 90vw;
+        }
+
+        /* --- FOOTER --- */
+        .portfolio-footer {
+            position: relative;
+            background-color: var(--footer-bg);
+            color: #ffffff;
+            padding: 80px 20px 40px;
+            width: 100%;
+            z-index: 10;
+            text-align: center;
+        }
+.cert-section {
+    padding:120px 5%;
+    text-align:center;
+    position:relative;
+}
+
+.cert-section::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(to right, var(--bg-color) 50%, transparent),
+    url("https://imgur.com/iitH81B.png");
+    background-size:cover;
+    opacity:.5;
+}
+
+.cert-section > * { 
+    position:relative; 
+}
+.cert-title {
+    font-family: 'Shrikhand', cursive;
+    font-size: 3rem;
+    color: #1b4332;
+    margin-bottom: 50px;
+}
+
+.cert-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.cert-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    background: #fffef0;
+    border-radius: 20px;
+    box-shadow: 5px 10px 0px #a4d07d;
+    transition: 0.3s;
+}
+
+.cert-card:hover {
+    transform: translateY(-5px);
+}
+
+.cert-text {
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
+    color: #1b4332;
+    text-align: left;
+    max-width: 60%;
+}
+
+/* ID TYPE BUTTON */
+.cert-btn {
+    text-decoration: none;
+    padding: 12px 20px;
+    background: #1b4332;
+    color: #ffffff;
+    border-radius: 12px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.cert-btn:hover {
+    background: #2d6a4f;
+    transform: scale(1.05);
+}
+        .back-to-top {
+            position: absolute;
+            right: 40px;
+            top: -25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--g-ghib);
+            color: var(--footer-bg);
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+          .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Comfortaa';
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover { opacity: 1; color: var(--accent-green); }
+
+
+          .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+     .contact-item .label {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 5px;
+        }
+
+       .footer-bottom {
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.75rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; text-align: center; }
+            .hero-content { padding: 0 5%; }
+            .oval-accent { left: 50%; transform: translate(-50%, -50%); }
+            .kent-img-container { height: 60vh; }
+            .tech-layout { flex-direction: column; align-items: center; }
+            .skills-container { width: 95%; padding: 20px; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .kettle-asset{  bottom: 50%; width: 50%; right: 50%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="nav-links" id="nav-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="works.html">Works</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="oval-accent"></div>
+        <h1 class="about-title">About Kent Reyes</h1>
+        <div class="bio-box">
+            I am Kent Rowen Reyes, 19-year-old, Computer Science student at Batangas State University with a profound passion for the intersection of technology and art. Since 2020, I have honed my skills in digital crafts.
+            With a background in customer service and a "work-hard" mentality, I balance technical rigor with creative flair—specializing in clean, professional aesthetics and efficient project management.
+            <br><br>
+            <strong>Key Highlights:</strong><br>
+            Technical: Beginner-level coding (C++, HTML/CSS) and website creation.<br>
+            Creative: Commercial poster design, digital art, and basic video editing.<br>
+            Soft Skills: Proven customer service experience and expert time management.
+        </div>
+    </div>
+    <div class="kent-img-container">
+        <img src="https://imgur.com/vQ2UMmW.png" class="kent-img">
+    </div>
+</section>
+
+<section class="tech-section">
+    <h2 class="main-title">Technical Experience</h2>
+    <div class="tech-layout">
+        <div class="skills-container">
+            <div class="skills-grid">
+                <div class="skill-item"><img src="https://imgur.com/MnYnDVC.png" alt="Canva"></div>
+                <div class="skill-item"><img src="https://imgur.com/4uCbP2Y.png" alt="CapCut"></div>
+                <div class="skill-item"><img src="https://imgur.com/gl84gXI.png" alt="Procreate"></div>
+                <div class="skill-item"><img src="https://imgur.com/yffcKxE.png" alt="Studio Clip"></div>
+                <div class="skill-item"><img src="https://imgur.com/EfvNP1D.png" alt="Visual Studio"></div>
+                <div class="skill-item"><img src="https://imgur.com/A7MX3Um.png" alt="Ibis Paint"></div>
+                <div class="skill-item"><img src="https://imgur.com/2omW1xW.png" alt="Photoshop"></div>
+            </div>
+        </div>
+        <div class="exp-container">
+            <div class="exp-card">Been using digital applications for creative work for the past few years.</div>
+            <div class="exp-card">Experienced in creating visual designs for both academic and commercial use.</div>
+            <div class="exp-card">Skilled in layout design, digital illustration, and multimedia content creation.</div>
+            <div class="exp-card">Basic knowledge in website creation and front-end development.</div>
+        </div>
+    </div>
+</section>
+
+<section class="bottom-section">
+    <img src="https://imgur.com/yQpQsjG.png" class="kettle-asset">
+    <img src="https://imgur.com/xhYNmEC.png" class="bottle-asset">
+    <div>
+        <h2>Coding Skills</h2>
+        <div class="codingexp-grid">
+            <div class="codingexp-tag">
+                <img src="https://imgur.com/ruGXET2.png" alt="Coding Skills Sticker">
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2>Abilities</h2>
+        <div class="abilities-grid">
+            <div class="ability-tag">
+                <img src="https://imgur.com/gGHVFmK.png" alt="Abilities Sticker">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="cert-section">
+    <h1 class="cert-title">My Certifications</h1>
+
+    <div class="cert-container">
+
+        <div class="cert-card">
+            <div class="cert-text">
+                Microsoft Artificial Intelligence Course: Azure AI Fundamentals
+            </div>
+            <a href="https://drive.google.com/file/d/1UBJ82qTskOoaI54BrNotChPluW5zTo8R/view?usp=sharing" target="_blank" class="cert-btn">
+                View Certificate
+            </a>
+        </div>
+
+        <div class="cert-card">
+            <div class="cert-text">
+                Graphic Design Essentials
+            </div>
+            <a href="https://drive.google.com/file/d/1D4iV6jFTiJMIM6CgZXM4Qko5k3a57iYo/view?usp=sharing" target="_blank" class="cert-btn">
+                View Certificate
+            </a>
+        </div>
+
+        <div class="cert-card">
+            <div class="cert-text">
+                Translating Concepts into Multimedia Contents
+            </div>
+            <a href="https://drive.google.com/file/d/1Q2FcHPqU16Qmf4Q22U77EOiADtnQeqo_/view?usp=sharing" target="_blank" class="cert-btn">
+                View Certificate
+            </a>
+        </div>
+
+        <div class="cert-card">
+            <div class="cert-text">
+                Introduction to Visual Graphic Design
+            </div>
+            <a href="https://drive.google.com/file/d/1C4vGyCn_CUDqfIkZJrwEjkWvBWeXBGSF/view?usp=sharing" target="_blank" class="cert-btn">
+                View Certificate
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<footer class="portfolio-footer">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">↑</button>
+    <div class="footer-content">
+        <h3 style="font-family: 'Shrikhand'; font-size: 2rem;">Connect</h3>
+        <div class="social-links">
+            <a href="https://ph.linkedin.com/in/kent-reyes-a2940b334" target="_blank">LinkedIn</a>
+            <a href="https://github.com/kentreyes208-code" target="_blank">GitHub</a>
+            <a href="https://www.instagram.com/kentii_88" target="_blank">Instagram</a>
+        </div>
+        <div class="footer-links">
+            <div class="contact-item">
+                <span class="label">Phone</span>
+                <span class="value">+63 936 943 3099</span>
+            </div>
+            <div class="contact-item">
+                <span class="label">Email</span>
+                <span class="value">kentreyes208@gmail.com</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Kent's Portfolio. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+</script>
+
+</body>
+</html>
