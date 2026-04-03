@@ -203,8 +203,15 @@
 
         /* --- MOBILE & IPAD FIXES --- */
         @media (max-width: 1024px) {
-            /* iPad Social Icons Scaling */
-            .social-icon { width: 5px; height: 5px; }
+            /* iPad Social Icons Scaling - Adjusted from 5px to usable size */
+            .social-icon { width: 32px; height: auto; }
+            
+            /* Human Image Scaling for iPad - Reduced to fit screen better */
+            .human-graphic {
+                width: 60%; 
+                max-width: 500px;
+                left: 5%;
+            }
         }
 
         @media (max-width: 768px) {
@@ -222,7 +229,7 @@
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
             
-            /* TV Screen & Buttons Scaling */
+            /* TV Screen & Buttons Scaling - Untouched layout */
             .tv-container { width: 100%; }
             .tv-screen { 
                 width: 45%; height: 38%; 
@@ -234,16 +241,17 @@
                 max-width: 140px; 
             }
 
-            /* Social Icons Scaling */
-            .social-icon { width: 28px; height: 28px; }
+            /* Social Icons Scaling for Mobile - Adjusted for touch */
+            .social-icon { width: 30px; height: auto; }
 
-            /* Human Image Focal Point Scaling */
+            /* Human Image Focal Point Scaling - Larger for mobile visibility */
             .human-graphic { 
-                width: 350px; /* Nilakihan para maging focal point */
-                max-width: 50vw;
+                width: 85%; 
+                max-width: 400px;
                 height: auto;
-                left: 10px;
-                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%); /* Centered better for mobile */
+                bottom: 10px;
             }
 
             .paper-container { flex-direction: column; padding: 40px 20px; transform: rotate(0); }
@@ -251,9 +259,9 @@
 
         @media (max-width: 480px) {
             /* Extra scaling for very small screens */
-            .human-graphic { width: 350px; }
+            .human-graphic { width: 90%; }
             .tv-link { font-size: 0.65rem; padding: 6px; }
-            .social-icon { width: 15px; height: 15px; }
+            .social-icon { width: 28px; height: auto; }
         }
     </style>
 </head>
